@@ -2,21 +2,25 @@ import React from "react";
 
 import Content from "./Content";
 
+const listData = [
+  {
+    title: "title 1",
+    desc:
+      "Lorem commodo proident do nostrud laborum culpa proident voluptate eu est cillum non cupidatat."
+  },
+  {
+    title: "title 2",
+    desc:
+      "Lorem commodo proident do nostrud laborum culpa proident voluptate eu est cillum non cupidatat."
+  }
+];
+
 const Body = () => {
   return (
     <div>
-      <Content
-        title="Apalah gitu ya"
-        desc="descriptio c ceuwibc cejkwbwke kbcew jcbeiuw ucew"
-      />
-      <Content
-        title="Apalah gitu ya 2"
-        desc="descriptio c ceuwibc cejkwbwke kbcew jcbeiuw ucew"
-      />
-      <Content
-        title="Apalah gitu ya 3"
-        desc="descriptio c ceuwibc cejkwbwke kbcew jcbeiuw ucew"
-      />
+      {listData.map(item => (
+        <Content title={item.title} desc={item.desc} />
+      ))}
     </div>
   );
 };
