@@ -18,8 +18,8 @@ const listData = [
 const Body = () => {
   return (
     <div>
-      {listData.map(item => (
-        <Content title={item.title} desc={item.desc} />
+      {listData.map((item, index) => (
+        <Content title={item.title} desc={item.desc} key={index} />
       ))}
     </div>
   );
