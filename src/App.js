@@ -38,7 +38,7 @@ class App extends Component {
   }
 
   handleChangeInput(value) {
-    this.setState({ text: value });
+    this.setState({ text: value, isShowText: false });
   }
 
   handleShowText() {
