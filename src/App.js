@@ -13,7 +13,7 @@ class App extends Component {
       angka: 0,
       isLoading: true,
       text: "",
-      isShowText: false
+      list: []
     };
   }
 
@@ -38,16 +38,17 @@ class App extends Component {
   }
 
   handleChangeInput(value) {
-    this.setState({ text: value, isShowText: false });
+    this.setState({ text: value });
   }
 
-  handleShowText() {
-    this.setState({ isShowText: true });
+  handleSubmit() {
+    this.setState({ list: [this.state.text, ...this.state.list], text: "" });
   }
 
   // setelah constructor
   render() {
     console.log("ini render");
+    console.log(this.state.list);
     return (
       <div className="App">
         <Header title="Header" />
@@ -63,9 +64,12 @@ class App extends Component {
           onChange={res => this.handleChangeInput(res.target.value)}
         />
 
-        <button onClick={() => this.handleShowText()}>show text input</button>
+        <button onClick={() => this.handleSubmit()}>submit</button>
+        <button onClick={() => this.setState({ list: [] })}>reset</button>
 
-        {this.state.isShowText ? <p>{this.state.text}</p> : null}
+        {this.state.list.map((item, index) => (
+          <p key={index}>{item}</p>
+        ))}
       </div>
     );
   }
