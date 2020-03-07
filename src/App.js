@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import Body from "./components/Body";
 
 class App extends Component {
+  // ini jalan ketika class jalan (pertama)
   constructor(props) {
     super(props);
     console.log("ini constructor");
@@ -14,6 +15,7 @@ class App extends Component {
     };
   }
 
+  // setelah render
   componentDidMount() {
     console.log("componentDidMount");
     console.log(this.state.angka);
@@ -22,16 +24,18 @@ class App extends Component {
     }, 3000);
   }
 
+  // ketika keluar dari class
   componentWillUnmount() {
     console.log("will mount");
   }
 
+  // ketika di panggil
   handleClick() {
     this.setState({ angka: this.state.angka + 1 });
     console.log(this.state.angka);
   }
 
-  // render view
+  // setelah constructor
   render() {
     console.log("ini render");
     return (
