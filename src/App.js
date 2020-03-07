@@ -12,7 +12,8 @@ class App extends Component {
     this.state = {
       angka: 0,
       isLoading: true,
-      text: ""
+      text: "",
+      isShowText: false
     };
   }
 
@@ -40,6 +41,10 @@ class App extends Component {
     this.setState({ text: value });
   }
 
+  handleShowText() {
+    this.setState({ isShowText: true });
+  }
+
   // setelah constructor
   render() {
     console.log("ini render");
@@ -58,9 +63,9 @@ class App extends Component {
           onChange={res => this.handleChangeInput(res.target.value)}
         />
 
-        <button>show text input</button>
+        <button onClick={() => this.handleShowText()}>show text input</button>
 
-        <p>{this.state.text}</p>
+        {this.state.isShowText ? <p>{this.state.text}</p> : null}
       </div>
     );
   }
