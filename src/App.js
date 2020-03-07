@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import "./App.css";
 
+import "./App.css";
 import Header from "./components/Header";
 import Body from "./components/Body";
 
@@ -11,7 +11,8 @@ class App extends Component {
     console.log("ini constructor");
     this.state = {
       angka: 0,
-      isLoading: true
+      isLoading: true,
+      text: ""
     };
   }
 
@@ -30,9 +31,13 @@ class App extends Component {
   }
 
   // ketika di panggil
-  handleClick() {
+  handleCount() {
     this.setState({ angka: this.state.angka + 1 });
     console.log(this.state.angka);
+  }
+
+  handleChangeInput(value) {
+    this.setState({ text: value });
   }
 
   // setelah constructor
@@ -43,9 +48,19 @@ class App extends Component {
         <Header title="Header" />
         {this.state.isLoading ? <p>Loading..</p> : <Body />}
 
-        <button onClick={() => this.handleClick()}>Klik</button>
+        <button onClick={() => this.handleCount()}>Count</button>
 
         <p>{this.state.angka}</p>
+
+        <input
+          value={this.state.text}
+          placeholder="input"
+          onChange={res => this.handleChangeInput(res.target.value)}
+        />
+
+        <button>show text input</button>
+
+        <p>{this.state.text}</p>
       </div>
     );
   }
