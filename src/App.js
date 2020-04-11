@@ -1,75 +1,61 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import axios from 'axios';
 
-import "./App.css";
-import Header from "./components/Header";
-import Body from "./components/Body";
+import Header from './components/Header'
 
 class App extends Component {
-  // ini jalan ketika class jalan (pertama)
   constructor(props) {
     super(props);
-    console.log("ini constructor");
-    this.state = {
-      angka: 0,
+    this.state = { 
       isLoading: true,
-      text: "",
-      list: []
+      isError: false,
+      data: {}
     };
   }
 
-  // setelah render
   componentDidMount() {
-    console.log("componentDidMount");
-    console.log(this.state.angka);
-    setTimeout(() => {
-      this.setState({ isLoading: false });
-    }, 3000);
+    axios.get('https://jsonplaceholder.typicode.com/todos/1').then((res) => {
+      this.setState({isLoading: false, data: res.data})
+    }).catch(() => {
+      this.setState({isLoading: false, isError: true})
+    })
   }
 
-  // ketika keluar dari class
-  componentWillUnmount() {
-    console.log("will mount");
+  _renderData = () => {
+    if(this.state.isLoading){
+      return <p>Loading...</p>
+    } else if(this.state.isError) {
+      return <p>Error</p>
+    } else {
+      return (
+        <table>
+          <tbody>
+            <tr>
+              <td>userId</td>
+              <td>:</td>
+              <td>{this.state.data.userId}</td>
+            </tr>
+            <tr>
+              <td>id</td>
+              <td>:</td>
+              <td>{this.state.data.id}</td>
+            </tr>
+            <tr>
+              <td>title</td>
+              <td>:</td>
+              <td>{this.state.data.title}</td>
+            </tr>
+          </tbody>
+        </table>
+      )
+    }
   }
 
-  // ketika di panggil
-  handleCount() {
-    this.setState({ angka: this.state.angka + 1 });
-    console.log(this.state.angka);
-  }
-
-  handleChangeInput(value) {
-    this.setState({ text: value });
-  }
-
-  handleSubmit() {
-    this.setState({ list: [this.state.text, ...this.state.list], text: "" });
-  }
-
-  // setelah constructor
   render() {
-    console.log("ini render");
-    console.log(this.state.list);
     return (
-      <div className="App">
-        <Header title="Header" />
-        {this.state.isLoading ? <p>Loading..</p> : <Body />}
-
-        <button onClick={() => this.handleCount()}>Count</button>
-
-        <p>{this.state.angka}</p>
-
-        <input
-          value={this.state.text}
-          placeholder="input"
-          onChange={res => this.handleChangeInput(res.target.value)}
-        />
-
-        <button onClick={() => this.handleSubmit()}>submit</button>
-        <button onClick={() => this.setState({ list: [] })}>reset</button>
-
-        {this.state.list.map((item, index) => (
-          <p key={index}>{item}</p>
-        ))}
+      <div>
+        <Header title='Belajar konsumsi api' />
+        {this._renderData()}
       </div>
     );
   }
